@@ -42,3 +42,40 @@ input[type="radio"] {
 #yearly:checked::before {
   transform: translate(-35%, -50%) translateX(4px);
 }
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1px solid hsl(229, 24%, 87%);
+  position: relative;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+input[type="checkbox"]:checked {
+  border-color: hsl(243, 100%, 62%);
+}
+
+input[type="checkbox"]:checked::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: hsl(243, 100%, 62%);
+  border-radius: 4px;
+}
+
+input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: url("images/icon-checkmark.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}

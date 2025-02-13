@@ -2,6 +2,7 @@ import { useState } from "react";
 import FirstStep from "./components/formFields/FirstStep";
 import SecondStep from "./components/formFields/SecondStep";
 import SideBar from "./components/SideBar";
+import ThirdStep from "./components/formFields/ThirdStep";
 
 function App() {
   const [step, setStep] = useState(1);
@@ -27,7 +28,7 @@ function App() {
             ) : step === 2 ? (
               <SecondStep />
             ) : step === 3 ? (
-              <h1 className="text-4xl">Third Step</h1>
+              <ThirdStep />
             ) : step === 4 ? (
               <h1 className="text-4xl">Last Step</h1>
             ) : (

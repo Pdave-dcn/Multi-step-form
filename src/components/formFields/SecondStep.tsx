@@ -45,7 +45,7 @@ const SecondStep = () => {
             <img src={plan.icon} alt={`${plan.name} option icon`} />
             <div className="flex flex-col items-start">
               <p className="font-[500] text-marine-blue">{plan.name}</p>
-              <p>${plan.price}/mo</p>
+              <p className="text-sm">${plan.price}/mo</p>
             </div>
           </button>
         ))}
