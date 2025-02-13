@@ -11,3 +11,34 @@
   --color-alabaster: hsl(231, 100%, 99%);
   --font-ubuntu: "Ubuntu", "Sans-serif";
 }
+
+input[type="radio"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+}
+
+#monthly:checked::before,
+#yearly:checked::before {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#monthly:checked::before {
+  transform: translate(0%, -50%) translateX(-4px);
+}
+
+#yearly:checked::before {
+  transform: translate(-35%, -50%) translateX(4px);
+}

@@ -1,6 +1,6 @@
 const FormFields = () => {
   return (
-    <form className="p-6 w-[85%] bg-white  text-cool-gray">
+    <form className="p-6 text-cool-gray">
       <h1 className="text-2xl text-marine-blue font-bold mb-3">
         Personal info
       </h1>
