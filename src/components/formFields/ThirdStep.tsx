@@ -1,8 +1,15 @@
-import { useState } from "react";
+type AddOnType = {
+  id: string;
+  name: string;
+  price: number;
+};
 
-const ThirdStep = () => {
-  const [checkedItems, setCheckedItems] = useState<string[]>([]);
+type ThirdStepType = {
+  checkedItems: AddOnType[];
+  setCheckedItems: React.Dispatch<React.SetStateAction<AddOnType[]>>;
+};
 
+const ThirdStep = ({ checkedItems, setCheckedItems }: ThirdStepType) => {
   const addOns = [
     {
       id: "1",
@@ -24,10 +31,13 @@ const ThirdStep = () => {
     },
   ];
 
-  const handleCheckboxChange = (id: string) => {
-    setCheckedItems((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
+  const handleCheckboxChange = (addOn: AddOnType) => {
+    setCheckedItems((prev) => {
+      const isAlreadyChecked = prev.some((item) => item.id === addOn.id);
+      return isAlreadyChecked
+        ? prev.filter((item) => item.id !== addOn.id)
+        : [...prev, addOn];
+    });
   };
 
   return (
@@ -43,7 +53,7 @@ const ThirdStep = () => {
             key={addOn.id}
             className={`flex items-center gap-4 p-2 border rounded-lg
               ${
-                checkedItems.includes(addOn.id)
+                checkedItems.some((item) => item.id === addOn.id)
                   ? "border-purplish-blue bg-alabaster"
                   : "border-light-gray"
               }`}
@@ -53,8 +63,8 @@ const ThirdStep = () => {
               name="add-ons"
               id={addOn.id}
               className=""
-              checked={checkedItems.includes(addOn.id)}
-              onChange={() => handleCheckboxChange(addOn.id)}
+              checked={checkedItems.some((item) => item.id === addOn.id)}
+              onChange={() => handleCheckboxChange(addOn)}
             />
             <div className="flex flex-1 justify-between items-center">
               <div>

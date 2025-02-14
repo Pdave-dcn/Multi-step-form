@@ -3,9 +3,17 @@ import FirstStep from "./components/formFields/FirstStep";
 import SecondStep from "./components/formFields/SecondStep";
 import SideBar from "./components/SideBar";
 import ThirdStep from "./components/formFields/ThirdStep";
+import LastStep from "./components/formFields/LastStep";
 
 function App() {
   const [step, setStep] = useState(1);
+  const [chosenPlan, setChosenPlan] = useState<{ name: string; price: number }>(
+    { name: "Arcade", price: 9 }
+  );
+  const [billingCycle, setBillingCycle] = useState("monthly");
+  const [checkedItems, setCheckedItems] = useState<
+    { id: string; name: string; price: number }[]
+  >([]);
 
   const handleNextStep = () => {
     if (step === 4) return;
@@ -26,11 +34,24 @@ function App() {
             {step === 1 ? (
               <FirstStep />
             ) : step === 2 ? (
-              <SecondStep />
+              <SecondStep
+                setChosenPlan={setChosenPlan}
+                billingCycle={billingCycle}
+                setBillingCycle={setBillingCycle}
+              />
             ) : step === 3 ? (
-              <ThirdStep />
+              <ThirdStep
+                checkedItems={checkedItems}
+                setCheckedItems={setCheckedItems}
+              />
             ) : step === 4 ? (
-              <h1 className="text-4xl">Last Step</h1>
+              <LastStep
+                chosenPlan={chosenPlan}
+                billingCycle={billingCycle}
+                checkedItems={checkedItems}
+                step={step}
+                setStep={setStep}
+              />
             ) : (
               ""
             )}

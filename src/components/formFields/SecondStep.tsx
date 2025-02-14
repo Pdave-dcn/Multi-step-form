@@ -1,8 +1,22 @@
 import { useState } from "react";
 
-const SecondStep = () => {
-  const [style, setStyle] = useState("arcade");
-  const [billingCycle, setBillingCycle] = useState("monthly");
+type SecondStepType = {
+  setChosenPlan: React.Dispatch<
+    React.SetStateAction<{
+      name: string;
+      price: number;
+    }>
+  >;
+  billingCycle: string;
+  setBillingCycle: React.Dispatch<React.SetStateAction<string>>;
+};
+
+const SecondStep = ({
+  setChosenPlan,
+  billingCycle,
+  setBillingCycle,
+}: SecondStepType) => {
+  const [choice, setChoice] = useState("arcade");
 
   const plans = [
     {
@@ -25,6 +39,10 @@ const SecondStep = () => {
     },
   ];
 
+  const handleChosenPlan = (name: string, price: number) => {
+    setChosenPlan({ name, price });
+  };
+
   return (
     <div className="p-6 text-cool-gray">
       <h1 className="text-2xl text-marine-blue font-bold mb-3">
@@ -38,9 +56,12 @@ const SecondStep = () => {
             key={plan.id}
             type="button"
             className={`border-1 flex items-center gap-4 p-2 rounded-lg ${
-              style === plan.id ? "border-purplish-blue bg-alabaster" : ""
+              choice === plan.id ? "border-purplish-blue bg-alabaster" : ""
             }`}
-            onClick={() => setStyle(plan.id)}
+            onClick={() => {
+              setChoice(plan.id);
+              handleChosenPlan(plan.name, plan.price);
+            }}
           >
             <img src={plan.icon} alt={`${plan.name} option icon`} />
             <div className="flex flex-col items-start">
