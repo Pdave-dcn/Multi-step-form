@@ -61,7 +61,7 @@ function App() {
         <div className="flex justify-between p-4 max-w-md bg-white">
           <button
             type="button"
-            className="text-cool-gray"
+            className={`text-cool-gray ${step > 1 ? "visible" : "invisible"}`}
             onClick={() => {
               handlePreviousStep();
             }}
@@ -70,12 +70,14 @@ function App() {
           </button>
           <button
             type="button"
-            className="text-magnolia bg-marine-blue p-2 px-3 rounded-md"
+            className={`text-magnolia p-2 px-3 rounded-md ${
+              step === 4 ? "bg-purplish-blue" : "bg-marine-blue"
+            }`}
             onClick={() => {
               handleNextStep();
             }}
           >
-            Next Step
+            {step === 4 ? "Confirm" : "Next Step"}
           </button>
         </div>
       </div>
