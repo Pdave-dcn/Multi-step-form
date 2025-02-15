@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect } from "react";
 
 type SecondStepType = {
   setChosenPlan: React.Dispatch<
@@ -9,46 +9,69 @@ type SecondStepType = {
   >;
   billingCycle: string;
   setBillingCycle: React.Dispatch<React.SetStateAction<string>>;
+  choice: string;
+  setChoice: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const SecondStep = ({
   setChosenPlan,
   billingCycle,
   setBillingCycle,
+  choice,
+  setChoice,
 }: SecondStepType) => {
-  const [choice, setChoice] = useState("arcade");
-
   const plans = [
     {
       id: "arcade",
       name: "Arcade",
       icon: "images/icon-arcade.svg",
-      price: 9,
+      price: {
+        monthly: 9,
+        yearly: 90,
+      },
     },
     {
       id: "advanced",
       name: "Advanced",
       icon: "images/icon-advanced.svg",
-      price: 12,
+      price: {
+        monthly: 12,
+        yearly: 120,
+      },
     },
     {
       id: "pro",
       name: "Pro",
       icon: "images/icon-pro.svg",
-      price: 15,
+      price: {
+        monthly: 15,
+        yearly: 150,
+      },
     },
   ];
 
-  const handleChosenPlan = (name: string, price: number) => {
-    setChosenPlan({ name, price });
+  const handleChosenPlan = (
+    name: string,
+    price: { monthly: number; yearly: number }
+  ) => {
+    const selectedPrice =
+      billingCycle === "monthly" ? price.monthly : price.yearly;
+    setChosenPlan({ name, price: selectedPrice });
   };
+
+  useEffect(() => {
+    const selectedPlan = plans.find((plan) => plan.id === choice);
+    if (selectedPlan) {
+      handleChosenPlan(selectedPlan.name, selectedPlan.price);
+    }
+  }, [billingCycle]);
 
   return (
     <div className="p-6 text-cool-gray">
       <h1 className="text-2xl text-marine-blue font-bold mb-3">
         Select your plan
       </h1>
-      <p className="mb-6">You have the option of monthly or yearly billing</p>
+      <p className="mb-6">You have the option of monthly or yearly billing.</p>
 
       <div className="flex flex-col gap-3.5 mb-4">
         {plans.map((plan) => (
@@ -66,14 +89,27 @@ const SecondStep = ({
             <img src={plan.icon} alt={`${plan.name} option icon`} />
             <div className="flex flex-col items-start">
               <p className="font-[500] text-marine-blue">{plan.name}</p>
-              <p className="text-sm">${plan.price}/mo</p>
+              <p className="text-sm">
+                $
+                {billingCycle === "monthly"
+                  ? plan.price.monthly
+                  : plan.price.yearly}
+                /mo
+              </p>
+              {billingCycle === "yearly" ? (
+                <p className="text-xs text-marine-blue mt-1 font-medium">
+                  2 months free
+                </p>
+              ) : (
+                ""
+              )}
             </div>
           </button>
         ))}
       </div>
 
       <div className="flex justify-center gap-4 bg-alabaster p-3 rounded-lg">
-        <p>Monthly</p>
+        <p className=" text-marine-blue font-medium">Monthly</p>
         <div className="bg-marine-blue rounded-2xl w-10">
           <input
             type="radio"
@@ -82,7 +118,7 @@ const SecondStep = ({
             aria-label="Monthly billing"
             value="monthly"
             onChange={(e) => setBillingCycle(e.target.value)}
-            {...(billingCycle === "monthly" && { defaultChecked: true })}
+            checked={billingCycle === "monthly"}
           />
           <input
             type="radio"
@@ -91,6 +127,7 @@ const SecondStep = ({
             aria-label="Yearly billing"
             value="yearly"
             onChange={(e) => setBillingCycle(e.target.value)}
+            checked={billingCycle === "yearly"}
           />
         </div>
         <p>Yearly</p>

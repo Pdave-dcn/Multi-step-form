@@ -10,10 +10,14 @@ function App() {
   const [chosenPlan, setChosenPlan] = useState<{ name: string; price: number }>(
     { name: "Arcade", price: 9 }
   );
+
   const [billingCycle, setBillingCycle] = useState("monthly");
+
   const [checkedItems, setCheckedItems] = useState<
-    { id: string; name: string; price: number }[]
+    { id: string; name: string; price: { monthly: number; yearly: number } }[]
   >([]);
+
+  const [choice, setChoice] = useState("arcade");
 
   const handleNextStep = () => {
     if (step === 4) return;
@@ -38,11 +42,14 @@ function App() {
                 setChosenPlan={setChosenPlan}
                 billingCycle={billingCycle}
                 setBillingCycle={setBillingCycle}
+                choice={choice}
+                setChoice={setChoice}
               />
             ) : step === 3 ? (
               <ThirdStep
                 checkedItems={checkedItems}
                 setCheckedItems={setCheckedItems}
+                billingCycle={billingCycle}
               />
             ) : step === 4 ? (
               <LastStep

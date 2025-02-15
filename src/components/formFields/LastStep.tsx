@@ -7,7 +7,7 @@ type LastStepType = {
   checkedItems: {
     id: string;
     name: string;
-    price: number;
+    price: { monthly: number; yearly: number };
   }[];
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
@@ -41,13 +41,21 @@ const LastStep = ({
               change
             </button>
           </div>
-          <p className="text-marine-blue font-bold">${chosenPlan.price}/mo</p>
+          <p className="text-marine-blue font-bold">
+            ${chosenPlan.price}
+            {billingCycle === "monthly" ? "/mo" : "/yr"}
+          </p>
         </div>
         <div className="pt-3">
           {checkedItems.map((item) => (
             <div key={item.id} className="flex justify-between pb-3">
               <p>{item.name}</p>
-              <p className="text-marine-blue">+${item.price}/mo</p>
+              <p className="text-marine-blue">
+                +$
+                {billingCycle === "monthly"
+                  ? item.price.monthly + "/mo"
+                  : item.price.yearly + "/yr"}
+              </p>
             </div>
           ))}
         </div>
@@ -57,9 +65,19 @@ const LastStep = ({
         <p>total (per {billingCycle === "monthly" ? "month" : "year"})</p>
         <p className="text-purplish-blue font-bold">
           +$
-          {chosenPlan.price +
-            checkedItems.reduce((total, item) => total + item.price, 0)}
-          /mo
+          {billingCycle === "monthly"
+            ? chosenPlan.price +
+              checkedItems.reduce(
+                (total, item) => total + item.price.monthly,
+                0
+              ) +
+              "/mo"
+            : chosenPlan.price +
+              checkedItems.reduce(
+                (total, item) => total + item.price.yearly,
+                0
+              ) +
+              "/yr"}
         </p>
       </div>
     </div>

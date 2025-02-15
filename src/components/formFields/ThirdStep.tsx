@@ -1,33 +1,47 @@
 type AddOnType = {
   id: string;
   name: string;
-  price: number;
+  price: { monthly: number; yearly: number };
 };
 
 type ThirdStepType = {
   checkedItems: AddOnType[];
   setCheckedItems: React.Dispatch<React.SetStateAction<AddOnType[]>>;
+  billingCycle: string;
 };
 
-const ThirdStep = ({ checkedItems, setCheckedItems }: ThirdStepType) => {
+const ThirdStep = ({
+  checkedItems,
+  setCheckedItems,
+  billingCycle,
+}: ThirdStepType) => {
   const addOns = [
     {
       id: "1",
       name: "Online service",
       description: "Access to multiplayer games",
-      price: 1,
+      price: {
+        monthly: 1,
+        yearly: 10,
+      },
     },
     {
       id: "2",
       name: "Larger storage",
       description: "Extra 1TB of cloud save",
-      price: 2,
+      price: {
+        monthly: 2,
+        yearly: 20,
+      },
     },
     {
       id: "3",
       name: "Customizable profile",
       description: "Custom theme on your profile",
-      price: 2,
+      price: {
+        monthly: 2,
+        yearly: 20,
+      },
     },
   ];
 
@@ -76,7 +90,12 @@ const ThirdStep = ({ checkedItems, setCheckedItems }: ThirdStepType) => {
                 </label>
                 <p className="text-xs">{addOn.description}</p>
               </div>
-              <p className="text-purplish-blue text-xs">+${addOn.price}/mo</p>
+              <p className="text-purplish-blue text-xs">
+                +$
+                {billingCycle === "monthly"
+                  ? addOn.price.monthly + "/mo"
+                  : addOn.price.yearly + "/yr"}
+              </p>
             </div>
           </div>
         ))}
