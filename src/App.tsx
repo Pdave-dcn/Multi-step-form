@@ -31,7 +31,7 @@ function App() {
   return (
     <div className="font-ubuntu bg-magnolia min-h-screen flex flex-col">
       <div className="w-full max-w-md mx-auto flex flex-col min-h-screen">
-        <SideBar />
+        <SideBar step={step} />
 
         <div className="px-4 flex-1 overflow-y-auto -mt-17 mb-20">
           <div className="bg-white rounded-lg shadow-lg">
