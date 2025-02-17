@@ -83,12 +83,12 @@ const FirstStep = ({
   }, [name, email, phone]);
 
   return (
-    <form className="p-6 text-cool-gray">
+    <div className="p-6 text-cool-gray">
       <h1 className="text-2xl text-marine-blue font-bold mb-3">
         Personal info
       </h1>
       <p className="mb-4">
-        Please provide your name, email address, and phone number
+        Please provide your name, email address, and phone number.
       </p>
 
       <div className="flex flex-col gap-3.5">
@@ -152,7 +152,7 @@ const FirstStep = ({
           </div>
         ))}
       </div>
-    </form>
+    </div>
   );
 };
 
