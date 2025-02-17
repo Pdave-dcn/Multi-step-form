@@ -21,7 +21,7 @@ const LastStep = ({
   setStep,
 }: LastStepType) => {
   return (
-    <div className="p-6 text-cool-gray flex flex-col">
+    <div className="flex flex-col">
       <h1 className="text-2xl text-marine-blue font-bold mb-3">Finishing up</h1>
       <p className="mb-4">
         Double-check everything looks OK before confirming.
@@ -35,7 +35,7 @@ const LastStep = ({
             </p>
             <button
               type="button"
-              className="underline"
+              className="underline cursor-pointer"
               onClick={() => setStep(step - 2)}
             >
               change

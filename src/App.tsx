@@ -49,19 +49,19 @@ function App() {
   const renderStepContent = () => {
     if (isSubmitted) {
       return (
-        <div className="flex flex-col items-center p-6 text-cool-gray">
+        <div className="flex flex-col items-center p-6 text-cool-gray max-w-lg">
           <img
             src="images/icon-thank-you.svg"
             alt="Thank you icon"
-            className="mt-11 mb-5 w-12"
+            className="mt-11 mb-5 w-12 lg:w-14"
           />
           <h1 className="text-marine-blue text-2xl font-bold mb-3">
             Thank you!
           </h1>
           <p className="text-center mb-5">
-            Thanks for confirming your subscription! <br />
-            We hope you have fun using our platform. If you ever need support,
-            please feel free to email us at support@loremgaming.com.
+            Thanks for confirming your subscription! We hope you have fun using
+            our platform. If you ever need support, please feel free to email us
+            at support@loremgaming.com.
           </p>
         </div>
       );
@@ -114,47 +114,51 @@ function App() {
   };
 
   return (
-    <div className="font-ubuntu bg-magnolia min-h-screen flex flex-col">
+    <div className="font-ubuntu bg-magnolia min-h-screen flex flex-col lg:justify-center">
       <form
-        className="w-full max-w-md mx-auto flex flex-col min-h-screen"
+        className="w-full mx-auto flex flex-col min-h-screen lg:min-h-0 lg:w-auto lg:bg-white lg:flex-row lg:rounded-lg"
         onSubmit={handleSubmit}
       >
         <SideBar step={step} />
 
-        <div className="px-4 flex-1 overflow-y-auto -mt-17 mb-20">
-          <div className="bg-white rounded-lg shadow-lg">
-            {renderStepContent()}
+        <div className=" flex flex-col justify-center lg:p-6 lg:px-20 lg:pt-13">
+          <div className="px-4 flex-1 overflow-y-auto -mt-17 mb-20 lg:mt-0 lg:px-0">
+            <div className="bg-white rounded-lg shadow-lg lg:shadow-none p-6 lg:p-0 text-cool-gray">
+              {renderStepContent()}
+            </div>
           </div>
-        </div>
 
-        {!isSubmitted && (
-          <div className="flex justify-between p-4 max-w-md bg-white">
-            <button
-              type="button"
-              className={`text-cool-gray ${step > 1 ? "visible" : "invisible"}`}
-              onClick={handlePreviousStep}
-            >
-              Go back
-            </button>
-            {step === 4 ? (
+          {!isSubmitted && (
+            <div className="flex justify-between p-4 lg:p-0 max-w-md bg-white">
               <button
                 type="button"
-                className="text-magnolia p-2 px-3 rounded-md bg-purplish-blue"
-                onClick={handleConfirm}
+                className={`text-cool-gray cursor-pointer ${
+                  step > 1 ? "visible" : "invisible"
+                }`}
+                onClick={handlePreviousStep}
               >
-                Confirm
+                Go back
               </button>
-            ) : (
-              <button
-                type="button"
-                className="text-magnolia p-2 px-3 rounded-md bg-marine-blue"
-                onClick={handleNextStep}
-              >
-                Next Step
-              </button>
-            )}
-          </div>
-        )}
+              {step === 4 ? (
+                <button
+                  type="button"
+                  className="text-magnolia p-2 px-3 rounded-md cursor-pointer bg-purplish-blue"
+                  onClick={handleConfirm}
+                >
+                  Confirm
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="text-magnolia p-2 px-3 rounded-md cursor-pointer bg-marine-blue"
+                  onClick={handleNextStep}
+                >
+                  Next Step
+                </button>
+              )}
+            </div>
+          )}
+        </div>
       </form>
     </div>
   );

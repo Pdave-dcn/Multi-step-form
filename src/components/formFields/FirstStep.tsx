@@ -83,11 +83,11 @@ const FirstStep = ({
   }, [name, email, phone]);
 
   return (
-    <div className="p-6 text-cool-gray">
-      <h1 className="text-2xl text-marine-blue font-bold mb-3">
+    <div className="">
+      <h1 className="text-2xl text-marine-blue font-bold mb-3 lg:mb-1.5">
         Personal info
       </h1>
-      <p className="mb-4">
+      <p className="mb-4 lg:mb-5.5">
         Please provide your name, email address, and phone number.
       </p>
 

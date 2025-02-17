@@ -67,20 +67,20 @@ const SecondStep = ({
   }, [billingCycle]);
 
   return (
-    <div className="p-6 text-cool-gray">
+    <div>
       <h1 className="text-2xl text-marine-blue font-bold mb-3">
         Select your plan
       </h1>
       <p className="mb-6">You have the option of monthly or yearly billing.</p>
 
-      <div className="flex flex-col gap-3.5 mb-4">
+      <div className="flex flex-col gap-3.5 mb-4 lg:flex-row lg:gap-4">
         {plans.map((plan) => (
           <button
             key={plan.id}
             type="button"
             className={`border-1 flex items-center gap-4 p-2 rounded-lg ${
               choice === plan.id ? "border-purplish-blue bg-alabaster" : ""
-            }`}
+            } lg:flex-col lg:items-start lg:w-36 lg:p-5`}
             onClick={() => {
               setChoice(plan.id);
               handleChosenPlan(plan.name, plan.price);

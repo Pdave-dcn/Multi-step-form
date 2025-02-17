@@ -55,7 +55,7 @@ const ThirdStep = ({
   };
 
   return (
-    <div className="p-6 text-cool-gray">
+    <div>
       <h1 className="text-2xl text-marine-blue font-bold mb-3">
         Pick adds-ons
       </h1>
@@ -65,7 +65,7 @@ const ThirdStep = ({
         {addOns.map((addOn) => (
           <div
             key={addOn.id}
-            className={`flex items-center gap-4 p-2 border rounded-lg
+            className={`flex items-center gap-4 p-2 lg:p-3.5 border rounded-lg
               ${
                 checkedItems.some((item) => item.id === addOn.id)
                   ? "border-purplish-blue bg-alabaster"
