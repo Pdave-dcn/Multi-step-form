@@ -74,7 +74,7 @@ input[type="checkbox"]:checked::after {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-image: url("images/icon-checkmark.svg");
+  background-image: url("/images/icon-checkmark.svg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
