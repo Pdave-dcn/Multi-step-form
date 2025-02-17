@@ -1,52 +1,159 @@
-const FormFields = () => {
+import { useState, useEffect } from "react";
+
+type FirstStepType = {
+  name: string;
+  email: string;
+  phone: string;
+  setName: React.Dispatch<React.SetStateAction<string>>;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  setPhone: React.Dispatch<React.SetStateAction<string>>;
+  setIsValid: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const FirstStep = ({
+  name,
+  email,
+  phone,
+  setName,
+  setEmail,
+  setPhone,
+  setIsValid,
+}: FirstStepType) => {
+  const [errors, setErrors] = useState<{
+    name: string;
+    email: string;
+    phone: string;
+  }>({
+    name: "",
+    email: "",
+    phone: "",
+  });
+
+  const [touched, setTouched] = useState<{
+    name: boolean;
+    email: boolean;
+    phone: boolean;
+  }>({
+    name: false,
+    email: false,
+    phone: false,
+  });
+
+  const validateField = (field: "name" | "email" | "phone", value: string) => {
+    let errorMessage = "";
+
+    if (field === "name") {
+      if (!value.trim()) {
+        errorMessage = "Name is required";
+      } else if (value.trim().length < 3) {
+        errorMessage = "Name must be at least 3 characters";
+      }
+    }
+
+    if (field === "email") {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) {
+        errorMessage = "Invalid email address";
+      }
+    }
+
+    if (field === "phone") {
+      const phoneRegex = /^\+?[0-9]{1,4}[\s-]?[0-9]{1,3}[\s-]?[0-9]{1,4}$/;
+      if (!phoneRegex.test(value)) {
+        errorMessage = "Invalid phone number";
+      }
+    }
+
+    setErrors((prevErrors) => ({ ...prevErrors, [field]: errorMessage }));
+
+    return errorMessage === "";
+  };
+
+  const handleBlur = (field: "name" | "email" | "phone", value: string) => {
+    setTouched((prevTouched) => ({ ...prevTouched, [field]: true }));
+    validateField(field, value);
+  };
+
+  useEffect(() => {
+    const isValid =
+      validateField("name", name) &&
+      validateField("email", email) &&
+      validateField("phone", phone);
+    setIsValid(isValid);
+  }, [name, email, phone]);
+
   return (
     <form className="p-6 text-cool-gray">
       <h1 className="text-2xl text-marine-blue font-bold mb-3">
         Personal info
       </h1>
       <p className="mb-4">
-        Please provide your name, email address and phone number
+        Please provide your name, email address, and phone number
       </p>
 
       <div className="flex flex-col gap-3.5">
-        <div className="flex flex-col">
-          <label htmlFor="name" className="text-marine-blue">
-            Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            placeholder="e.g. Stephen King"
-            className="border p-1 px-4 outline-purplish-blue rounded-sm"
-          />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="email" className="text-marine-blue">
-            Email Address
-          </label>
-          <input
-            type="email"
-            name=""
-            id="email"
-            placeholder="e.g. stephenking@lorem.com"
-            className="border p-1 px-4 outline-purplish-blue rounded-sm"
-          />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="phone" className="text-marine-blue">
-            Phone Number
-          </label>
-          <input
-            type="tel"
-            name=""
-            id="phone"
-            placeholder="e.g. +1 234 567 890"
-            className="border p-1 px-4 outline-purplish-blue rounded-sm"
-          />
-        </div>
+        {[
+          {
+            label: "Name",
+            type: "text",
+            id: "name",
+            state: name,
+            setState: setName,
+          },
+          {
+            label: "Email Address",
+            type: "email",
+            id: "email",
+            state: email,
+            setState: setEmail,
+          },
+          {
+            label: "Phone Number",
+            type: "tel",
+            id: "phone",
+            state: phone,
+            setState: setPhone,
+          },
+        ].map(({ label, type, id, state, setState }) => (
+          <div key={id} className="flex flex-col">
+            <div className="flex justify-between">
+              <label htmlFor={id} className="text-marine-blue">
+                {label}
+              </label>
+              {touched[id as keyof typeof touched] &&
+                errors[id as keyof typeof errors] && (
+                  <p className="text-red-500 text-xs">
+                    {errors[id as keyof typeof errors]}
+                  </p>
+                )}
+            </div>
+            <input
+              type={type}
+              id={id}
+              placeholder={
+                id === "name"
+                  ? "e.g. Stephen King"
+                  : id === "email"
+                  ? "e.g. stephenking@lorem.com"
+                  : "e.g. +1 234 567 890"
+              }
+              className={`border p-1 px-4 font-medium text-marine-blue rounded-sm border-light-gray ${
+                touched[id as keyof typeof touched] &&
+                errors[id as keyof typeof errors]
+                  ? "outline-red-500"
+                  : "outline-purplish-blue"
+              }`}
+              value={state}
+              onChange={(e) => setState(e.target.value)}
+              onBlur={(e) =>
+                handleBlur(id as "name" | "email" | "phone", e.target.value)
+              }
+            />
+          </div>
+        ))}
       </div>
     </form>
   );
 };
 
-export default FormFields;
+export default FirstStep;

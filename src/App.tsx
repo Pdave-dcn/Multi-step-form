@@ -7,6 +7,11 @@ import LastStep from "./components/formFields/LastStep";
 
 function App() {
   const [step, setStep] = useState(1);
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+
   const [chosenPlan, setChosenPlan] = useState<{ name: string; price: number }>(
     { name: "Arcade", price: 9 }
   );
@@ -19,7 +24,13 @@ function App() {
 
   const [choice, setChoice] = useState("arcade");
 
+  const [isValid, setIsValid] = useState(false);
+
   const handleNextStep = () => {
+    if (step === 1 && !isValid) {
+      alert("Please fill out all fields correctly before proceeding.");
+      return;
+    }
     if (step === 4) return;
     setStep(step + 1);
   };
@@ -28,6 +39,7 @@ function App() {
     if (step === 1) return;
     setStep(step - 1);
   };
+
   return (
     <div className="font-ubuntu bg-magnolia min-h-screen flex flex-col">
       <div className="w-full max-w-md mx-auto flex flex-col min-h-screen">
@@ -36,7 +48,15 @@ function App() {
         <div className="px-4 flex-1 overflow-y-auto -mt-17 mb-20">
           <div className="bg-white rounded-lg shadow-lg">
             {step === 1 ? (
-              <FirstStep />
+              <FirstStep
+                name={name}
+                email={email}
+                phone={phone}
+                setName={setName}
+                setEmail={setEmail}
+                setPhone={setPhone}
+                setIsValid={setIsValid}
+              />
             ) : step === 2 ? (
               <SecondStep
                 setChosenPlan={setChosenPlan}
@@ -75,17 +95,24 @@ function App() {
           >
             Go back
           </button>
-          <button
-            type="button"
-            className={`text-magnolia p-2 px-3 rounded-md ${
-              step === 4 ? "bg-purplish-blue" : "bg-marine-blue"
-            }`}
-            onClick={() => {
-              handleNextStep();
-            }}
-          >
-            {step === 4 ? "Confirm" : "Next Step"}
-          </button>
+          {step !== 4 ? (
+            <button
+              type="button"
+              className={`text-magnolia p-2 px-3 rounded-md bg-marine-blue`}
+              onClick={() => {
+                handleNextStep();
+              }}
+            >
+              Next Step
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className={`text-magnolia p-2 px-3 rounded-md bg-purplish-blue`}
+            >
+              Confirm
+            </button>
+          )}
         </div>
       </div>
     </div>
