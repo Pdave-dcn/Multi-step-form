@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FirstStepType } from "../types";
+import { motion } from "motion/react";
 
 const FirstStep = ({
   name,
@@ -74,7 +75,12 @@ const FirstStep = ({
   }, [name, email, phone]);
 
   return (
-    <div className="">
+    <motion.div
+      initial={{ x: "100%", opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: "-100%", opacity: 0 }}
+      transition={{ type: "spring", stiffness: 150, damping: 20 }}
+    >
       <h1 className="text-2xl text-marine-blue font-bold mb-3 lg:mb-1.5">
         Personal info
       </h1>
@@ -143,7 +149,7 @@ const FirstStep = ({
           </div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

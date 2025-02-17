@@ -1,3 +1,5 @@
+import { motion } from "motion/react";
+
 const SideBar = ({ step }: { step: number }) => {
   const stepsIndicator = [
     { number: 1, step: "STEP 1", description: "YOUR INFO" },
@@ -6,7 +8,12 @@ const SideBar = ({ step }: { step: number }) => {
     { number: 4, step: "STEP 4", description: "SUMMARY" },
   ];
   return (
-    <div className="lg:p-3">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, delay: 0.5 }}
+      className="lg:p-3"
+    >
       <div className="bg-[url('/images/bg-sidebar-mobile.svg')] lg:bg-[url('/images/bg-sidebar-desktop.svg')] bg-cover bg-center h-40 lg:h-full w-full flex justify-center lg:rounded-lg lg:p-7">
         <div className="flex mt-7 gap-5 lg:flex-col lg:gap-3">
           {stepsIndicator.map((indicator) => (
@@ -35,7 +42,7 @@ const SideBar = ({ step }: { step: number }) => {
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

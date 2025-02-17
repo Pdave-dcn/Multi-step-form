@@ -1,4 +1,5 @@
 import { LastStepType } from "../types";
+import { motion } from "motion/react";
 
 const LastStep = ({
   chosenPlan,
@@ -8,7 +9,13 @@ const LastStep = ({
   setStep,
 }: LastStepType) => {
   return (
-    <div className="flex flex-col">
+    <motion.div
+      initial={{ x: "100%", opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: "-100%", opacity: 0 }}
+      transition={{ type: "spring", stiffness: 150, damping: 20 }}
+      className="flex flex-col"
+    >
       <h1 className="text-2xl text-marine-blue font-bold mb-3">Finishing up</h1>
       <p className="mb-4">
         Double-check everything looks OK before confirming.
@@ -49,7 +56,7 @@ const LastStep = ({
       </div>
 
       <div className="flex justify-between text-sm w-[90%] self-center">
-        <p>total (per {billingCycle === "monthly" ? "month" : "year"})</p>
+        <p>Total (per {billingCycle === "monthly" ? "month" : "year"})</p>
         <p className="text-purplish-blue font-bold">
           +$
           {billingCycle === "monthly"
@@ -67,7 +74,7 @@ const LastStep = ({
               "/yr"}
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

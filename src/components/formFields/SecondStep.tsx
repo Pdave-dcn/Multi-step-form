@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { SecondStepType } from "../types";
+import { motion } from "motion/react";
 
 const SecondStep = ({
   setChosenPlan,
@@ -55,7 +56,12 @@ const SecondStep = ({
   }, [billingCycle]);
 
   return (
-    <div>
+    <motion.div
+      initial={{ x: "100%", opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: "-100%", opacity: 0 }}
+      transition={{ type: "spring", stiffness: 150, damping: 20 }}
+    >
       <h1 className="text-2xl text-marine-blue font-bold mb-3">
         Select your plan
       </h1>
@@ -120,7 +126,7 @@ const SecondStep = ({
         </div>
         <p>Yearly</p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
