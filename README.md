@@ -1,50 +1,61 @@
-# React + TypeScript + Vite
+# Multi-Step Form
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a multi-step form wizard built with React and Motion for smooth page transitions. It guides users through several steps to collect personal information, choose a plan, select add-ons, and finally review their selections.
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Usage](#usage)
+- [Screenshots](#screenshots)
+- [Project Structure](#project-structure)
+- [Technologies](#technologies)
+- [License](#license)
 
-## Expanding the ESLint configuration
+## Usage
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+The form guides users through four distinct steps:
 
-- Configure the top-level `parserOptions` property like this:
+- **Personal Info (App.tsx & FirstStep.tsx):** Users enter their name, email, and phone number. Input validation ensures all fields are correctly filled.
+- **Choose Plan (SecondStep.tsx):** Users select a plan (Arcade, Advanced, or Pro) and toggle between monthly or yearly billing.
+- **Pick Add-ons (ThirdStep.tsx):** Users can select additional features (add-ons) to enhance their experience.
+- **Review & Confirm (LastStep.tsx):** Users review their choices and the total price before confirming their subscription.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Transition animations between steps are managed with Motion, providing a smooth and responsive user experience.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Screenshots
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Here are some screenshots demonstrating the form in action:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- **Step 1: Personal Information**
+
+  ![Personal Info](./screenshots/desktop-design-step-1.jpg)
+
+- **Step 2: Choose Plan**
+
+  ![Choose Plan](./screenshots/desktop-design-step-2-monthly.jpg)
+
+- **Step 3: Pick Add-ons**
+
+  ![Pick Add-ons](./screenshots/mobile-design-step-3-yearly.jpg)
+
+- **Step 4: Review & Confirm**
+
+  ![Review & Confirm](./screenshots/mobile-design-step-4-yearly.jpg)
+
+## Project Structure
+
+- **App.tsx:** The main component managing step navigation, form submission, and rendering the sidebar.
+- **FirstStep.tsx:** Handles personal information with validation logic.
+- **SecondStep.tsx:** Allows users to choose a plan and toggle billing cycles.
+- **ThirdStep.tsx:** Presents optional add-ons to the user.
+- **LastStep.tsx:** Reviews user selections and calculates the total cost.
+
+## Technologies
+
+- React
+- TypeScript
+- Motion (for animations)
+- Tailwind CSS (for styling)
+
+## License
+
+This project is licensed under the MIT License.
