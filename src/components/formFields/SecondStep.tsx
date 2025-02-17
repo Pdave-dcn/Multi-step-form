@@ -1,17 +1,5 @@
 import { useEffect } from "react";
-
-type SecondStepType = {
-  setChosenPlan: React.Dispatch<
-    React.SetStateAction<{
-      name: string;
-      price: number;
-    }>
-  >;
-  billingCycle: string;
-  setBillingCycle: React.Dispatch<React.SetStateAction<string>>;
-  choice: string;
-  setChoice: React.Dispatch<React.SetStateAction<string>>;
-};
+import { SecondStepType } from "../types";
 
 const SecondStep = ({
   setChosenPlan,

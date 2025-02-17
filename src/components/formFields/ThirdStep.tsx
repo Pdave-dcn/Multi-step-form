@@ -1,14 +1,4 @@
-type AddOnType = {
-  id: string;
-  name: string;
-  price: { monthly: number; yearly: number };
-};
-
-type ThirdStepType = {
-  checkedItems: AddOnType[];
-  setCheckedItems: React.Dispatch<React.SetStateAction<AddOnType[]>>;
-  billingCycle: string;
-};
+import { AddOnType, ThirdStepType } from "../types";
 
 const ThirdStep = ({
   checkedItems,

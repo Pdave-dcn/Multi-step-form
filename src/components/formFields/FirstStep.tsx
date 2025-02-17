@@ -1,14 +1,5 @@
 import { useState, useEffect } from "react";
-
-type FirstStepType = {
-  name: string;
-  email: string;
-  phone: string;
-  setName: React.Dispatch<React.SetStateAction<string>>;
-  setEmail: React.Dispatch<React.SetStateAction<string>>;
-  setPhone: React.Dispatch<React.SetStateAction<string>>;
-  setIsValid: React.Dispatch<React.SetStateAction<boolean>>;
-};
+import { FirstStepType } from "../types";
 
 const FirstStep = ({
   name,

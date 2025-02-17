@@ -1,17 +1,4 @@
-type LastStepType = {
-  chosenPlan: {
-    name: string;
-    price: number;
-  };
-  billingCycle: string;
-  checkedItems: {
-    id: string;
-    name: string;
-    price: { monthly: number; yearly: number };
-  }[];
-  step: number;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
-};
+import { LastStepType } from "../types";
 
 const LastStep = ({
   chosenPlan,
